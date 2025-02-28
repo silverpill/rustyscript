@@ -152,6 +152,13 @@ impl InnerRustyLoader {
         referrer: &str,
         kind: deno_core::ResolutionKind,
     ) -> Result<ModuleSpecifier, Error> {
+        let specifier_ = if specifier == "fs" {
+            format!("node:fs")
+        } else {
+            specifier.to_string()
+        };
+        let specifier = &specifier_;
+
         //
         // Handle import aliasing for node imports
         #[cfg(feature = "node_experimental")]
