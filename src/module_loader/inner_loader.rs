@@ -152,8 +152,8 @@ impl InnerRustyLoader {
         referrer: &str,
         kind: deno_core::ResolutionKind,
     ) -> Result<ModuleSpecifier, Error> {
-        let specifier_ = if specifier == "fs" {
-            format!("node:fs")
+        let specifier_ = if ["fs", "path"].contains(&specifier) {
+            format!("node:{specifier}")
         } else {
             specifier.to_string()
         };
